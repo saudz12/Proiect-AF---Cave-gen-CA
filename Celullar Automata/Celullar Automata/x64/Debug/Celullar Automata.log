@@ -1,4 +1,6 @@
-﻿  Source.cpp
-C:\Saud\UNIV\Celullar Automata\Celullar Automata\Source.cpp(87,21): warning C4018: '<': signed/unsigned mismatch
-C:\Saud\UNIV\Celullar Automata\Celullar Automata\Source.cpp(154,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-  Celullar Automata.vcxproj -> C:\Saud\UNIV\Celullar Automata\x64\Debug\Celullar Automata.exe
+﻿  Celullar Automata.cpp
+  Source.cpp
+C:\Users\Dell\Desktop\PROIECT AF GIT\Proiect-AF---Cave-gen-CA\Celullar Automata\Celullar Automata\Source.cpp(87,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Dell\Desktop\PROIECT AF GIT\Proiect-AF---Cave-gen-CA\Celullar Automata\Celullar Automata\Source.cpp(154,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  Generating Code...
+  Celullar Automata.vcxproj -> C:\Users\Dell\Desktop\PROIECT AF GIT\Proiect-AF---Cave-gen-CA\Celullar Automata\x64\Debug\Celullar Automata.exe

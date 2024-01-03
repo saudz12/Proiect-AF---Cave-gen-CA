@@ -31,7 +31,7 @@ bool newTtpe(cave& myCave, const int& x, const int& y, const int& height, const 
 
 void fineTuning(cave& myCave, const int& height, const int& width);
 
-void generateCave(cave& myCave, const int& height, const int& width);
+void cleaning(cave& myCave, const int& height, const int& width);
 
 void fillMap(cave& myCave, const int& height, const int& width, const unsigned int& noise);
 
@@ -45,19 +45,8 @@ void floodFilling(cave& myCave, const int& height, const int& width);
 
 void cellularAutomata(int height, int width, unsigned int noise, int generations);
 
+void configBlueprint(const cave& myCave, const int& height, const int& width, const unsigned int& noise, const int& generations);
+
 void getMap(const cave& myCave, const int& height, const int& width);
 
 void copyCave(const cave& cave1, cave& cave2, const int& height, const int& width);
-
-//! Steps:
-//! Generates a cave of respective WIDTH and HEIGHT, filled with %NOISE walls which are represented by 1s
-//! By the rule of cellular automata, if a wall has less than 4 walls as neighbours it becomes a space, 
-//! and if a space has moppre than 5 walls it becomes a wall. If neither, it stays the same.
-//! This procces is repeated GENERATIONS times to smoothen the cave to our desire.
-//! Spaces that are too filled or too empty shall be filled with blocks(check fuull empty/filled 3x3 or almost empty/filled 4x4).
-//! For fixing isolated caves, FLOOD FILLING will be used to get rid of all the caves besides the biggest one.
-//! If the largest cave is ont of a desired size(recommended to be in between [noise-5, noise+5].
-//! For 3D, there is not much change just it is a cube. Same rules apply , but with slightly different values.
-//! For rendering the tri-dimensional cave we will use UNITY(pass a binary file containing the blueprint of the cave or something like that) 
-//! or we will make a renderer. - optional
-//! Furthermore, for the clarity of code move everything to a class - optional

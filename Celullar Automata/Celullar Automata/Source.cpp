@@ -52,7 +52,7 @@ bool fineType(cave& myCave, const int& x, const int& y, const int& height, const
 
 //Update cave by the rules implied by cellular automata 
 
-void generateCave(cave& myCave, const int& height, const int& width) {
+void cleaning(cave& myCave, const int& height, const int& width) {
 	cave newCave;
 	initMap(newCave, height, width);
 	for (int h = 0; h < height; h++)
@@ -189,27 +189,37 @@ void cellularAutomata(int height, int width, unsigned int noise, int generations
 
 	initMap(myCave, height, width);
 	fillMap(myCave, height, width, noise % 100);
-
-
-	std::cout << "INITIAL CAVE\n";
+	/*std::cout << "INITIAL CAVE\n";
 	getMap(myCave, height, width);
-	system("pause");
+	system("pause");*/
 	int k;
 	for (k = 0; k < generations; k++) {
 		fineTuning(myCave, height, width);
-		system("cls");
+		/*system("cls");
 		std::cout << "ITERATION " << k+1 << '\n';
 		getMap(myCave, height, width);
-		system("pause");
+		system("pause");*/
 	}
-	for(k = 0; k < generations; k++)
-		generateCave(myCave, height, width);
+	for (k = 0; k < generations; k++)
+		cleaning(myCave, height, width);
 	floodFilling(myCave, height, width);
 
 	system("cls");
-	getMap(myCave, height, width);
-
+	//getMap(myCave, height, width);
+	configBlueprint(myCave, height, width, noise, generations);
+	system("pause");
 	return;
+}
+
+void configBlueprint(const cave& myCave, const int& height, const int& width, const unsigned int& noise, const int& generations) {
+	std::ofstream fout("blueprint.txt");
+	fout << height << " " << width << " " << noise << " " << generations;
+	for (int h = 0; h < height; h++) {
+		fout << '\n';
+		for (int w = 0; w < width; w++)
+			fout << myCave[h][w];
+	}
+	fout.close();
 }
 
 //prints the 'cave' on screen(console)
