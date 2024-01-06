@@ -42,6 +42,18 @@ bool newTtpe(cave& myCave, const int& x, const int& y, const int& height, const 
 	
 }
 
+void cleaning(cave& myCave, const int& height, const int& width) {
+	cave newCave;
+	initMap(newCave, height, width);
+	for (int h = 0; h < height; h++)
+		for (int w = 0; w < width; w++) {
+			newCave[h][w] = newTtpe(myCave, h, w, height, width);
+		}
+	copyCave(newCave, myCave, height, width);
+	return;
+}
+
+
 bool fineType(cave& myCave, const int& x, const int& y, const int& height, const int& width) {
 	int adj = getNeigbours(myCave, x, y, height, width);
 	int fix = get2x2Neigbours(myCave, x, y, height, width);
@@ -49,21 +61,6 @@ bool fineType(cave& myCave, const int& x, const int& y, const int& height, const
 	if (x == 0 || y == 0 || x == height - 1 || y == width - 1) return true;
 	return adj >= 5 || fix <= 2;
 }
-
-//Update cave by the rules implied by cellular automata 
-
-void cleaning(cave& myCave, const int& height, const int& width) {
-	cave newCave;
-	initMap(newCave, height, width);
-	for (int h = 0; h < height; h++)
-		for (int w = 0; w < width; w++){
-			newCave[h][w] = newTtpe(myCave, h, w, height, width);
-		}
-	copyCave(newCave, myCave, height, width);
-	return;
-}
-
-//Removes isolated walls
 
 void fineTuning(cave& myCave, const int& height, const int& width) {
 	cave newCave;
@@ -129,12 +126,6 @@ std::queue<point> getFLoodedCave(const cave& myCave, cave& auxCave, int i, int j
 		isFlooded.push(point{x, y});
 		toBeFlooded.pop();
 	}
-	/*std::queue<point> q1 = isFlooded; <-- uncomment to check if the queue is built properly
-	while (!q1.empty()) {
-		std::cout << "(" << q1.front().x << "," << q1.front().y << ") ";
-		q1.pop();
-	}
-	std::cout << "\n///////////////////////////\n";*/
 	return isFlooded;
 }
 
@@ -164,10 +155,6 @@ std::queue<point> getMaxCavern(const cave& myCave, const int& height, const int&
 
 void floodFilling(cave& myCave, const int& height, const int& width) {
 	std::queue<point> maxCave = getMaxCavern(myCave, height, width);
-	std::cout << maxCave.size() << '\n';
-	/*if (maxCave.size() < width * height / 3) {
-		return false;
-	}*/
 	for (int i = 0; i < height; i++)
 		for (int j = 0; j < width; j++)
 			myCave[i][j] = true;
@@ -182,6 +169,15 @@ void floodFilling(cave& myCave, const int& height, const int& width) {
 	return;
 }
 
+void horizontalBlanking(cave& myCave, const int& height, const int& width) {
+	std::cout << (height >= 50 && width >= 100 || height >= 100 && width >= 50) << '\n';
+	if (!(height >= 50 && width >= 100 || height >= 100 && width >= 50))
+		return;
+	for (int i = 25; i <= height - 25; i += 25)
+		for (int j = 25; j <= width - 25; j++)
+			myCave[i][j] = myCave[i - 1][j] = myCave[i + 1][j] = false;
+}
+
 //programu in sine
 
 void cellularAutomata(int height, int width, unsigned int noise, int generations) {
@@ -189,27 +185,41 @@ void cellularAutomata(int height, int width, unsigned int noise, int generations
 
 	initMap(myCave, height, width);
 	fillMap(myCave, height, width, noise % 100);
-	/*std::cout << "INITIAL CAVE\n";
+	horizontalBlanking(myCave, height, width);
 	getMap(myCave, height, width);
-	system("pause");*/
+	system("pause");
 	int k;
 	for (k = 0; k < generations; k++) {
 		fineTuning(myCave, height, width);
-		/*system("cls");
-		std::cout << "ITERATION " << k+1 << '\n';
-		getMap(myCave, height, width);
-		system("pause");*/
 	}
-	for (k = 0; k < generations; k++)
+	for (k = 0; k < generations; k++) {
 		cleaning(myCave, height, width);
+	}
 	floodFilling(myCave, height, width);
 
 	system("cls");
-	//getMap(myCave, height, width);
+	getMap(myCave, height, width);
 	configBlueprint(myCave, height, width, noise, generations);
-	system("pause");
 	return;
 }
+
+void finalCleaning(cave& myCave, const int& height, const int& width) {
+	cave auxCave;
+	initMap(auxCave, height, width);
+	for (int i = 0; i < height; i++)
+		for (int j = 0; j < width; j++) {
+			if (i == 0 || j == 0 || i == height - 1 || j == width - 1) {
+				auxCave[i][j] = true;
+				continue;
+			}
+			if (myCave[i][j] == true && getNeigbours(myCave, i, j, height, width) <= 2)
+				auxCave[i][j] = false;
+			else
+				auxCave[i][j] = myCave[i][j];
+		}
+	copyCave(auxCave, myCave, height, width);
+}
+
 
 void configBlueprint(const cave& myCave, const int& height, const int& width, const unsigned int& noise, const int& generations) {
 	std::ofstream fout("blueprint.txt");

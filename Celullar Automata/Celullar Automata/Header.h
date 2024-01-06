@@ -1,16 +1,13 @@
 #include <iostream>
 #include <fstream>
 #include <random>
-#include <fstream>
 #include <time.h>
 #include <stdlib.h>
 #include <vector>
 #include <stdio.h>
-#include <time.h>
+#include <windows.h>
 #include <queue>
-#include <stack>
 
-//kept as bool to use less memory(bool uses 1 byte, while int has 4), and used std::vector to not bother with memory management
 typedef std::vector<std::vector<bool>> cave;
 
 struct point { 
@@ -43,7 +40,11 @@ std::queue<point> getMaxCavern(const cave& myCave, const int& height, const int&
 
 void floodFilling(cave& myCave, const int& height, const int& width);
 
+void horizontalBlanking(cave& myCave, const int& height, const int& width);
+
 void cellularAutomata(int height, int width, unsigned int noise, int generations);
+
+void finalCleaning(cave& myCave, const int& height, const int& width);
 
 void configBlueprint(const cave& myCave, const int& height, const int& width, const unsigned int& noise, const int& generations);
 
