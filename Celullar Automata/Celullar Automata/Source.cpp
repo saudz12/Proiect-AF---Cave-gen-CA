@@ -170,7 +170,6 @@ void floodFilling(cave& myCave, const int& height, const int& width) {
 }
 
 void horizontalBlanking(cave& myCave, const int& height, const int& width) {
-	std::cout << (height >= 50 && width >= 100 || height >= 100 && width >= 50) << '\n';
 	if (!(height >= 50 && width >= 100 || height >= 100 && width >= 50))
 		return;
 	for (int i = 25; i <= height - 25; i += 25)
@@ -186,8 +185,6 @@ void cellularAutomata(int height, int width, unsigned int noise, int generations
 	initMap(myCave, height, width);
 	fillMap(myCave, height, width, noise % 100);
 	horizontalBlanking(myCave, height, width);
-	getMap(myCave, height, width);
-	system("pause");
 	int k;
 	for (k = 0; k < generations; k++) {
 		fineTuning(myCave, height, width);
@@ -201,6 +198,38 @@ void cellularAutomata(int height, int width, unsigned int noise, int generations
 	getMap(myCave, height, width);
 	configBlueprint(myCave, height, width, noise, generations);
 	return;
+}
+
+void cellularAutomataDebug(int height, int width, unsigned int noise, int generations) {
+	cave myCave;
+
+	initMap(myCave, height, width);
+	fillMap(myCave, height, width, noise % 100);
+	horizontalBlanking(myCave, height, width);
+	std::cout << "INITIAL CAVE\n";
+	getMap(myCave, height, width);
+	system("pause");
+	int k;
+	for (k = 0; k < generations; k++) {
+		fineTuning(myCave, height, width);
+		system("cls");
+		std::cout << "ITERATION " << k+1 << '\n';
+		getMap(myCave, height, width);
+		system("pause");
+	}
+	for (k = 0; k < generations; k++) {
+		cleaning(myCave, height, width);
+		system("cls");
+		std::cout << "ITERATION " << generations + k << '\n';
+		getMap(myCave, height, width);
+		system("pause");
+	}
+	floodFilling(myCave, height, width);
+
+	system("cls");
+	getMap(myCave, height, width);
+	configBlueprint(myCave, height, width, noise, generations);
+	system("pause");
 }
 
 void finalCleaning(cave& myCave, const int& height, const int& width) {

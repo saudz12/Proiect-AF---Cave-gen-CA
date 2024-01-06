@@ -2,14 +2,14 @@
 
 int main()
 {
-	//40 80 45 5 
 	int width, height, noise;
+	std::string mode;
 	unsigned int generations;
-	std::cout << "Please imput the HEIGHT, WIDTH, NOISE and NUMBER OF GENERATIONS: ";
-	std::cin >> height >> width >> noise >> generations;
-	cellularAutomata(height, width, noise, generations);
-	
-	//ShellExecuteA(NULL, "open", "file:///C:/Users/Dell/Desktop/cave%20generation%20p5.js/index.html", NULL, NULL, SW_SHOWNORMAL);
-
+	std::cout << "Please imput the HEIGHT, WIDTH, NOISE, NUMBER OF GENERATIONS, and mode(type 'debug' for stages or anything else for normal run:\n ";
+	std::cin >> height >> width >> noise >> generations >> mode;
+	if (mode == "debug")
+		cellularAutomataDebug(height, width, noise, generations);
+	else
+		cellularAutomata(height, width, noise, generations);
 	return 0;
 }

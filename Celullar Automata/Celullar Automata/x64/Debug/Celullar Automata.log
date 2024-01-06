@@ -1,4 +1,4 @@
 ﻿  Source.cpp
-C:\Users\Dell\Desktop\cave generation p5.js\Celullar Automata\Celullar Automata\Source.cpp(84,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Dell\Desktop\cave generation p5.js\Celullar Automata\Celullar Automata\Source.cpp(145,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-  Celullar Automata.vcxproj -> C:\Users\Dell\Desktop\cave generation p5.js\Celullar Automata\x64\Debug\Celullar Automata.exe
+C:\Users\Dell\Desktop\PROIECT AF GIT\Proiect-AF---Cave-gen-CA\Celullar Automata\Celullar Automata\Source.cpp(84,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Dell\Desktop\PROIECT AF GIT\Proiect-AF---Cave-gen-CA\Celullar Automata\Celullar Automata\Source.cpp(145,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  Celullar Automata.vcxproj -> C:\Users\Dell\Desktop\PROIECT AF GIT\Proiect-AF---Cave-gen-CA\Celullar Automata\x64\Debug\Celullar Automata.exe

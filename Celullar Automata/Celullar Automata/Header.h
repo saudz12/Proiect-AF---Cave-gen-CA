@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <fstream>
 #include <random>
 #include <time.h>
@@ -43,6 +44,8 @@ void floodFilling(cave& myCave, const int& height, const int& width);
 void horizontalBlanking(cave& myCave, const int& height, const int& width);
 
 void cellularAutomata(int height, int width, unsigned int noise, int generations);
+
+void cellularAutomataDebug(int height, int width, unsigned int noise, int generations);
 
 void finalCleaning(cave& myCave, const int& height, const int& width);
 
