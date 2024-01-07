@@ -31,5 +31,8 @@
     <Text Include="blueprint.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="afis.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

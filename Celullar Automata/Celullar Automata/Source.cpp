@@ -13,7 +13,7 @@ int getNeigbours(const cave& myCave, const int& x, const int& y, const int& heig
 	return adjWalls;
 }
 
-//Will use to get rid of unconnected caves
+//5x5
 
 int get2x2Neigbours(const cave& myCave, const int& x, const int& y, const int& height, const int& width) {
 	int adjWalls = 0;
@@ -28,8 +28,6 @@ int get2x2Neigbours(const cave& myCave, const int& x, const int& y, const int& h
 	}
 	return adjWalls;
 }
-
-//Get new type of cell after the rulsed of cellular aotomata
 
 bool newTtpe(cave& myCave, const int& x, const int& y, const int& height, const int& width) {
 	int adj = getNeigbours(myCave, x, y, height, width);
@@ -73,8 +71,6 @@ void fineTuning(cave& myCave, const int& height, const int& width) {
 	return;
 }
 
-//initial fill of map; 'noise' value means what % of the 'cave' is filled with 'walls'. If random value is smaller than the noise value, then the tile becomes a wall(1). Otherwise it stays as an ampty space(0)
-
 void fillMap(cave& myCave, const int& height, const int& width, const unsigned int& noise) {
 	srand((unsigned)time(NULL));
 	for(int h = 0; h < height; h++){
@@ -87,16 +83,12 @@ void fillMap(cave& myCave, const int& height, const int& width, const unsigned i
 	return;
 }
 
-//initializing an obiect of 'cave' type
-
 void initMap(cave& myCave, const int& height, const int& width) {
 	myCave.resize(height);
 	for (int i = 0; i < height; i++) 
 		myCave[i].resize(width);
 	return;
 }
-
-//returns a cave that contains the point passed in the function
 
 std::queue<point> getFLoodedCave(const cave& myCave, cave& auxCave, int i, int j, const int& height, const int& width){
 	std::queue<point> toBeFlooded;
@@ -198,8 +190,12 @@ void cellularAutomata(int height, int width, unsigned int noise, int generations
 	system("cls");
 	getMap(myCave, height, width);
 	configBlueprint(myCave, height, width, noise, generations);
+	afisareFis(myCave, height, width);
+	system("pause");
 	return;
 }
+
+//debug
 
 void cellularAutomataDebug(int height, int width, unsigned int noise, int generations) {
 	cave myCave;
@@ -231,8 +227,11 @@ void cellularAutomataDebug(int height, int width, unsigned int noise, int genera
 	system("cls");
 	getMap(myCave, height, width);
 	configBlueprint(myCave, height, width, noise, generations);
+	afisareFis(myCave, height, width);
 	system("pause");
 }
+
+//unused
 
 void finalCleaning(cave& myCave, const int& height, const int& width) {
 	cave auxCave;
@@ -251,6 +250,7 @@ void finalCleaning(cave& myCave, const int& height, const int& width) {
 	copyCave(auxCave, myCave, height, width);
 }
 
+//blueprint 
 
 void configBlueprint(const cave& myCave, const int& height, const int& width, const unsigned int& noise, const int& generations) {
 	std::ofstream fout("blueprint.txt");
@@ -259,6 +259,21 @@ void configBlueprint(const cave& myCave, const int& height, const int& width, co
 		fout << '\n';
 		for (int w = 0; w < width; w++)
 			fout << myCave[h][w];
+	}
+	fout.close();
+}
+
+//afisare in fisier
+
+void afisareFis(const cave& myCave, const int& height, const int& width) {
+	std::ofstream fout("afis.txt");
+	for (int h = 0; h < height; h++) {
+		for (int w = 0; w < width; w++)
+			if (myCave[h][w] == true)
+				fout << "#";
+			else
+				fout << ".";
+		fout << '\n';
 	}
 	fout.close();
 }

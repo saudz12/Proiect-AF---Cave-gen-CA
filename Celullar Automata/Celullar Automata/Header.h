@@ -51,6 +51,8 @@ void finalCleaning(cave& myCave, const int& height, const int& width);
 
 void configBlueprint(const cave& myCave, const int& height, const int& width, const unsigned int& noise, const int& generations);
 
+void afisareFis(const cave& myCave, const int& height, const int& width);
+
 void getMap(const cave& myCave, const int& height, const int& width);
 
 void copyCave(const cave& cave1, cave& cave2, const int& height, const int& width);
