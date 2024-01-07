@@ -173,7 +173,7 @@ void horizontalBlanking(cave& myCave, const int& height, const int& width) {
 	if (!(height >= 50 && width >= 100 || height >= 100 && width >= 50))
 		return;
 	for (int i = 25; i <= height - 25; i += 25)
-		for (int j = 25; j <= width - 25; j++)
+		for (int j = 5; j <= width - 5; j++)
 			myCave[i][j] = myCave[i - 1][j] = myCave[i + 1][j] = false;
 }
 
@@ -192,7 +192,8 @@ void cellularAutomata(int height, int width, unsigned int noise, int generations
 	for (k = 0; k < generations; k++) {
 		cleaning(myCave, height, width);
 	}
-	floodFilling(myCave, height, width);
+	if(generations > 0)
+		floodFilling(myCave, height, width);
 
 	system("cls");
 	getMap(myCave, height, width);
@@ -224,7 +225,8 @@ void cellularAutomataDebug(int height, int width, unsigned int noise, int genera
 		getMap(myCave, height, width);
 		system("pause");
 	}
-	floodFilling(myCave, height, width);
+	if(generations > 0)
+		floodFilling(myCave, height, width);
 
 	system("cls");
 	getMap(myCave, height, width);
